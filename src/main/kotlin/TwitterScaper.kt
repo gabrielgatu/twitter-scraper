@@ -8,7 +8,7 @@ object TwitterScraper {
         val (tweetsDOM, _maxPosition) = downloadTweets(query)
         val document = Jsoup.parse(tweetsDOM)
 
-        return document.select(".stream-item").map { tweetElement ->
+        return document.select(".stream-item").mapNotNull { tweetElement ->
             parseTweet(tweetElement)
         }
     }
@@ -45,7 +45,11 @@ fun downloadTweets(query: String, maxPosition: String? = null): Pair<String, Str
     }
 }
 
-fun parseTweet(tweet: Element): Tweet {
+fun parseTweet(tweet: Element): Tweet? {
+    if (tweet.select(".tweet-text").isEmpty()) {
+        return null
+    }
+
     val tweetId = tweet.attr("data-item-id")
     val text = tweet.select(".tweet-text").get(0).text()
     val date = run {
