@@ -7,7 +7,7 @@ import org.jsoup.nodes.Element
 import java.util.*
 
 fun search(query: String): List<Tweet> {
-    val (tweetsDOM, _maxPosition) = downloadTweets(query)
+    val (tweetsDOM, _maxPosition) = downloadTweetsPage(query)
     val document = Jsoup.parse(tweetsDOM)
 
     return document.select(".stream-item").mapNotNull { tweetElement ->
@@ -23,7 +23,7 @@ private fun buildUrl(query: String): String {
     return url + "include_available_features=1&include_entities=1&include_new_items_bar=true"
 }
 
-private fun downloadTweets(query: String, maxPosition: String? = null): Pair<String, String> {
+private fun downloadTweetsPage(query: String, maxPosition: String? = null): Pair<String, String> {
     val url = buildUrl(query)
     val headers = mapOf(
         "Accept" to "application/json, text/javascript, */*; q=0.01",
