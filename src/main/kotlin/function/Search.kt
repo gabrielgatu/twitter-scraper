@@ -86,15 +86,15 @@ private fun parseTweet(tweet: Element): Tweet? {
     )
 }
 
-private fun parseInteractions(tweet: Element): Triple<Int, Int, Int> {
+private fun parseInteractions(tweet: Element): Triple<Long, Long, Long> {
     val interactions = tweet.select(".ProfileTweet-actionCount").map { it.text() }
 
-    val parseStat = fun (index: Int): Int {
+    val parseStat = fun (index: Int): Long {
         return interactions[index]
             .split(" ")[0]
             .replace(",", "")
             .replace(".", "")
-            .toInt()
+            .toLong()
     }
 
     val replies = parseStat(0)
