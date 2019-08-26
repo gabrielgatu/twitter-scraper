@@ -3,11 +3,15 @@ import model.User
 
 object TwitterScraper {
     fun profile(username: String): User {
-        return profile(username)
+        return function.profile(username)
     }
 
-    fun search(query: String): List<Tweet> {
-        return search(query)
+    fun searchByUsername(username: String): List<Tweet> {
+        return function.search(username)
+    }
+
+    fun searchByHashtag(hashtag: String): List<Tweet> {
+        return function.search("#$hashtag")
     }
 }
 
