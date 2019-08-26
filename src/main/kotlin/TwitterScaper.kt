@@ -3,7 +3,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import java.util.*
 
-object TwitterScaper {
+object TwitterScraper {
     fun search(query: String): List<Tweet> {
         val (tweetsDOM, _maxPosition) = downloadTweets(query)
         val document = Jsoup.parse(tweetsDOM)
